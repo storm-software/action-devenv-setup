@@ -62,6 +62,7 @@ runs:
 
     - name: Install devenv
       run: nix profile install nixpkgs#devenv
+      shell: bash
 
     - name: Setup GPG
       uses: crazy-max/ghaction-import-gpg@v5

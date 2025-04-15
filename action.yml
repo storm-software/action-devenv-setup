@@ -56,7 +56,7 @@ runs:
       uses: cachix/install-nix-action@v26
 
     - name: Configures Nix to use the devenv cache
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v16
       with:
         name: devenv
 

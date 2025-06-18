@@ -53,7 +53,7 @@ runs:
         token: ${{ inputs.storm-bot-github-token }}
 
     - name: Install and set up Nix
-      uses: cachix/install-nix-action@v26
+      uses: cachix/install-nix-action@v31
 
     - name: Configures Nix to use the devenv cache
       uses: cachix/cachix-action@v14

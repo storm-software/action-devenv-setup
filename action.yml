@@ -69,6 +69,8 @@ runs:
       with:
         gpg_private_key: ${{ inputs.gpg-private-key }}
         passphrase: ${{ inputs.gpg-passphrase }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
 
     - name: Configure git
       run: |

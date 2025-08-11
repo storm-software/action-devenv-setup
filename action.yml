@@ -34,7 +34,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       name: Checkout [Pull Request]
       if: ${{ github.event_name == 'pull_request' }}
       with:
@@ -44,7 +44,7 @@ runs:
         fetch-depth: 0
         token: ${{ inputs.storm-bot-github-token }}
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       name: Checkout [Default Branch]
       if: ${{ github.event_name != 'pull_request' }}
       with:

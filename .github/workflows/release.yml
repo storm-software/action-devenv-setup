@@ -33,7 +33,7 @@ jobs:
       contents: write
       id-token: write
     if:
-      github.repository == 'storm-software/action-dependabot-approve' && (github.ref ==
+      github.repository == 'storm-software/action-devenv-setup' && (github.ref ==
       'refs/heads/main' || github.ref == 'refs/heads/next' || github.ref ==
       'refs/heads/experimental')
     steps:
@@ -126,7 +126,7 @@ jobs:
           github_token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           tag_name: ${{ steps.tag.outputs.value }}
           release_name: Release ${{ steps.tag.outputs.value }}
-          body: Release ${{ steps.tag.outputs.value }} of the Storm Software - Devenv Setup action.
+          body: Release ${{ steps.tag.outputs.value }} of the Storm Software - Notification action.
           make_latest: true
           draft: false
           prerelease: false

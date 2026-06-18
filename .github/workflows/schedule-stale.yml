@@ -22,7 +22,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 14
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "blocked: more info needed"
@@ -38,7 +38,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 14
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "blocked: needs rebased"
@@ -54,7 +54,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 14
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "blocked: repro needed"
@@ -70,7 +70,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 14
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "blocked: retry with latest"
@@ -86,7 +86,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 180
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: bug"
@@ -102,7 +102,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 180
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: cleanup"
@@ -118,7 +118,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 180
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: docs"
@@ -134,7 +134,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 250
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: enhancement"
@@ -150,7 +150,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 250
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: feature"
@@ -166,7 +166,7 @@ jobs:
           repo-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
           days-before-stale: 45
           days-before-close: 14
-          stale-issue-label: "stale"
+          stale-issue-label: stale
           operations-per-run: 300
           remove-stale-when-updated: true
           only-labels: "type: question / discussion"

@@ -1,7 +1,7 @@
 name: 📖 Documentation issue
 description: Help improve our docs.
 title: "[Documentation]: "
-labels: ["documentation"]
+labels: [documentation]
 assignees:
   - sullivanpj
 body:

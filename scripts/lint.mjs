@@ -29,7 +29,7 @@ try {
 
   let proc =
     $`pnpm exec eslint --fix --quiet --color --config ./eslint.config.mjs --cache --cache-location ./node_modules/.cache/eslint/workspace.json --concurrency auto ${
-      filesList || "packages/**"
+      filesList || "**/*.{ts,tsx,js,jsx,json,md}"
     }`.timeout(`${30 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
@@ -41,9 +41,7 @@ try {
     );
   }
 
-  proc = $`pnpm exec storm-lint all --skip-cspell --skip-circular-deps`.timeout(
-    `${30 * 60}s`
-  );
+  proc = $`pnpm exec storm-lint actions-up`.timeout(`${30 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });

@@ -1,4 +1,4 @@
-name: "Release"
+name: Release
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ env:
 
 jobs:
   start:
-    name: "Send in process notification"
+    name: Send in process notification
     runs-on: ubuntu-latest
     environment: production
     permissions:
@@ -44,14 +44,14 @@ jobs:
             with this deployment: ${{ github.event.pull_request.html_url ||
             github.event.head_commit.url }} "
           color: 2077350
-          status: "In Progress"
+          status: In Progress
           slack-token: ${{ secrets.STORM_BOT_SLACK_TOKEN }}
           telegram-token: ${{ secrets.STORM_BOT_TELEGRAM_TOKEN }}
           telegram-chat: ${{ secrets.STORM_BOT_TELEGRAM_NOTIFICATION_CHAT }}
           discord-webhook: ${{ secrets.STORM_BOT_DISCORD_WEBHOOK}}
 
   process:
-    name: "Release"
+    name: Release
     if: always() && !cancelled() && !contains(needs.*.result, 'failure') &&
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
       - start
     steps:
       - name: Checkout [Pull Request]
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
           # By default, PRs will be checked-out based on the Merge Commit, but we want the actual branch HEAD.
@@ -74,7 +74,7 @@ jobs:
           persist-credentials: false
 
       - name: Checkout `main` branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         if: ${{ github.event_name != 'pull_request' }}
         with:
           # We need to fetch all branches and commits so that Nx affected has a base to compare against.
@@ -100,14 +100,14 @@ jobs:
 
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.1
+        uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b # v6.2
         with:
           github_token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
-          tag_prefix: "v"
+          tag_prefix: v
           dry_run: true
           default_bump: false
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: marvinpinto/action-automatic-releases@latest
         if: steps.tag_version.outputs.release_type
         with:
           repo_token: "${{ secrets.STORM_BOT_GITHUB_TOKEN }}"
@@ -140,7 +140,7 @@ jobs:
             github.event.pull_request.html_url || github.event.head_commit.url
             }} "
           color: 556891
-          status: "Success"
+          status: Success
           slack-token: ${{ secrets.STORM_BOT_SLACK_TOKEN }}
           telegram-token: ${{ secrets.STORM_BOT_TELEGRAM_TOKEN }}
           telegram-chat: ${{ secrets.STORM_BOT_TELEGRAM_NOTIFICATION_CHAT }}
@@ -167,7 +167,7 @@ jobs:
             with this deployment: ${{ github.event.pull_request.html_url ||
             github.event.head_commit.url }} "
           color: 10027008
-          status: "Failure"
+          status: Failure
           slack-token: ${{ secrets.STORM_BOT_SLACK_TOKEN }}
           telegram-token: ${{ secrets.STORM_BOT_TELEGRAM_TOKEN }}
           telegram-chat: ${{ secrets.STORM_BOT_TELEGRAM_NOTIFICATION_CHAT }}
@@ -195,7 +195,7 @@ jobs:
             github.event.pull_request.html_url || github.event.head_commit.url
             }}."
           color: 16565273
-          status: "Cancelled"
+          status: Cancelled
           slack-token: ${{ secrets.STORM_BOT_SLACK_TOKEN }}
           telegram-token: ${{ secrets.STORM_BOT_TELEGRAM_TOKEN }}
           telegram-chat: ${{ secrets.STORM_BOT_TELEGRAM_NOTIFICATION_CHAT }}

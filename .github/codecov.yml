@@ -10,7 +10,7 @@ coverage:
         threshold: 2%
   precision: 2
   round: down
-  range: "70...100"
+  range: 70...100
 
 parsers:
   gcov:
@@ -26,4 +26,4 @@ comment:
   require_changes: false # if true: only post the comment if coverage changes
   require_base: false # [yes :: must have a base report to post]
   require_head: true # [yes :: must have a head report to post]
-  branches: ["main"]
+  branches: [main]

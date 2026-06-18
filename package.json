@@ -62,7 +62,8 @@
     "lefthook": "catalog:",
     "prettier": "catalog:",
     "rimraf": "catalog:",
-    "zx": "catalog:"
+    "zx": "catalog:",
+    "unrs-resolver": "catalog:"
   },
   "packageManager": "pnpm@11.1.2",
   "engines": {

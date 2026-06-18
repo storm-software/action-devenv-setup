@@ -9,7 +9,7 @@ on:
       - experimental
     paths-ignore:
       - "**/*.md"
-      - ".all-contributorsrc"
+      - .all-contributorsrc
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -23,8 +23,8 @@ jobs:
       contents: read
       security-events: write
     with:
-      scan-type: "fs"
-      format: "sarif"
+      scan-type: fs
+      format: sarif
       exit-code: 0
       publish: true
 
@@ -35,7 +35,7 @@ jobs:
       contents: read
       security-events: write
     with:
-      scan-type: "config"
-      format: "sarif"
+      scan-type: config
+      format: sarif
       exit-code: 0
       publish: true

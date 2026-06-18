@@ -1,91 +1,91 @@
 # Note: This is a composite GitHub Actions, it should do all env setup, caching an so on, so other pipelines can just compose their own stuff on top of that.
 # Docs: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
-name: "Storm Software - DevEnv Setup"
-description: "A composite action configuration used across many Storm Software repos to setup a repository that uses [DevEnv](https://devenv.sh/)."
+name: "Storm Software - Devenv Setup"
+description: "A composite action used by Storm Software repositories to setup a CI environment using [devenv](https://devenv.sh/)."
 author: "sullivanpj"
 
 branding:
-    icon: "package"
-    color: "gray-dark"
+  icon: "terminal"
+  color: "gray-dark"
 
 inputs:
-    gpg-sign-key:
-        description: "GPG Sign Key"
-        required: true
-    gpg-private-key:
-        description: "GPG Private Key"
-        required: true
-    gpg-passphrase:
-        description: "GPG Passphrase"
-        required: true
-    storm-bot-name:
-        description: The username of the Storm bot
-        required: true
-        default: stormie-bot
-    storm-bot-email:
-        description: The email associated with the Storm bot
-        required: true
-        default: bot@stormsoftware.com
-    storm-bot-github-token:
-        description: The github token of the Storm bot
-        required: true
+  gpg-sign-key:
+    description: "GPG Sign Key"
+    required: true
+  gpg-private-key:
+    description: "GPG Private Key"
+    required: true
+  gpg-passphrase:
+    description: "GPG Passphrase"
+    required: true
+  storm-bot-name:
+    description: The username of the Storm bot
+    required: true
+    default: stormie-bot
+  storm-bot-email:
+    description: The email associated with the Storm bot
+    required: true
+    default: bot@stormsoftware.com
+  storm-bot-github-token:
+    description: The github token of the Storm bot
+    required: true
 
 runs:
-    using: "composite"
-    steps:
-        - uses: actions/checkout@v5
-          name: Checkout [Pull Request]
-          if: ${{ github.event_name == 'pull_request' }}
-          with:
-              # By default, PRs will be checked-out based on the Merge Commit, but we want the actual branch HEAD.
-              ref: ${{ github.event.pull_request.head.sha }}
-              # We need to fetch all branches and commits so that Nx affected has a base to compare against.
-              fetch-depth: 0
-              token: ${{ inputs.storm-bot-github-token }}
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v5
+      name: Checkout [Pull Request]
+      if: ${{ github.event_name == 'pull_request' }}
+      with:
+        # By default, PRs will be checked-out based on the Merge Commit, but we want the actual branch HEAD.
+        ref: ${{ github.event.pull_request.head.sha }}
+        # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+        fetch-depth: 0
+        token: ${{ inputs.storm-bot-github-token }}
 
-        - uses: actions/checkout@v5
-          name: Checkout [Default Branch]
-          if: ${{ github.event_name != 'pull_request' }}
-          with:
-              # We need to fetch all branches and commits so that Nx affected has a base to compare against.
-              fetch-depth: 0
-              token: ${{ inputs.storm-bot-github-token }}
+    - uses: actions/checkout@v5
+      name: Checkout [Default Branch]
+      if: ${{ github.event_name != 'pull_request' }}
+      with:
+        # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+        fetch-depth: 0
+        token: ${{ inputs.storm-bot-github-token }}
 
-        - name: Install and set up Nix
-          uses: cachix/install-nix-action@v31
+    - name: Install and set up Nix
+      uses: cachix/install-nix-action@v31
 
-        # - name: Configures Nix to use the devenv cache
-        #   uses: cachix/cachix-action@v16
-        #   with:
-        #       name: devenv
+    # - name: Configures Nix to use the devenv cache
+    #   uses: cachix/cachix-action@v16
+    #   with:
+    #       name: devenv
 
-        - name: Install devenv
-          run: nix profile install nixpkgs#devenv
-          shell: bash
+    - name: Install devenv
+      run: nix profile install nixpkgs#devenv
+      shell: bash
 
-        - name: Setup GPG
-          uses: crazy-max/ghaction-import-gpg@v6
-          with:
-              gpg_private_key: ${{ inputs.gpg-private-key }}
-              passphrase: ${{ inputs.gpg-passphrase }}
-              git_config_global: true
-              git_user_signingkey: true
-              git_commit_gpgsign: true
-              git_tag_gpgsign: true
-              git_committer_name: ${{ inputs.storm-bot-name }}
-              git_committer_email: ${{ inputs.storm-bot-email }}
+    - name: Setup GPG
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ inputs.gpg-private-key }}
+        passphrase: ${{ inputs.gpg-passphrase }}
+        git_config_global: true
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+        git_tag_gpgsign: true
+        git_committer_name: ${{ inputs.storm-bot-name }}
+        git_committer_email: ${{ inputs.storm-bot-email }}
 
-        - name: Configure git
-          run: |
-              git config commit.gpgsign true
-              git config tag.gpgSign true
-              git config lfs.allowincompletepush true
-              git config init.defaultBranch main
-          shell: bash
+    - name: Configure git
+      run: |
+        git config commit.gpgsign true
+        git config tag.gpgSign true
+        git config lfs.allowincompletepush true
+        git config init.defaultBranch main
+      shell: bash
 
-        - name: Configure npm
-          run: |
-              npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-              npm config set provenance true
-          shell: bash
+    - name: Configure npm
+      run: |
+        npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+        npm config set provenance true
+      shell: bash

@@ -6,7 +6,7 @@ description: "A composite action used by Storm Software repositories to setup a 
 author: sullivanpj
 
 branding:
-  icon: terminal
+  icon: play
   color: gray-dark
 
 inputs:

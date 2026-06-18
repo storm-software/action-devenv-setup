@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   name = "storm-software/action-devenv-setup";
 
@@ -8,4 +8,8 @@
     ".env.local"
   ];
   dotenv.disableHint = true;
+
+  packages = with pkgs; [
+    zizmor
+  ];
 }

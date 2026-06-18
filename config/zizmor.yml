@@ -9,6 +9,8 @@ rules:
       - git-guardian.yml
       - dependabot-update.yml
       - codeql.yml
+      - security.yml
+      - schedule-stale.yml
   excessive-permissions:
     ignore:
       - zizmor.yml
@@ -16,3 +18,6 @@ rules:
       - lock.yml
       - git-guardian.yml
       - release.yml
+  archived-uses:
+    ignore:
+      - release.yml:110:15

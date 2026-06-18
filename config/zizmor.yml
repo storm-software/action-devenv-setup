@@ -5,10 +5,6 @@ rules:
   unpinned-uses:
     ignore:
       - release.yml
-      - ci-reusable.yml
-      - git-guardian.yml
-      - dependabot-update.yml
-      - codeql.yml
       - security.yml
       - schedule-stale.yml
   excessive-permissions:

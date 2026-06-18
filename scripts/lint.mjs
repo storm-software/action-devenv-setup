@@ -28,7 +28,7 @@ try {
   }
 
   let proc =
-    $`pnpm exec eslint --fix --quiet --color --config ./eslint.config.mjs --cache --cache-location ./node_modules/.cache/eslint/workspace.json --concurrency auto ${
+    $`pnpm exec eslint --fix --quiet --color --no-error-on-unmatched-pattern --config ./eslint.config.mjs --cache --cache-location ./node_modules/.cache/eslint/workspace.json --concurrency auto ${
       filesList || "**/*.{ts,tsx,js,jsx,json,md}"
     }`.timeout(`${30 * 60}s`);
   proc.stdout.on("data", data => {

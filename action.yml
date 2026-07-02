@@ -30,12 +30,19 @@ inputs:
   storm-bot-github-token:
     description: The github token of the Storm bot
     required: true
+  cachix-name:
+    description: The cachix name
+    required: true
+    default: github-devenv
+  cachix-auth-token:
+    description: The cachix auth token
+    required: false
 
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
-      name: Checkout [Pull Request]
+    - name: Checkout [Pull Request]
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       if: ${{ github.event_name == 'pull_request' }}
       with:
         # By default, PRs will be checked-out based on the Merge Commit, but we want the actual branch HEAD.
@@ -43,22 +50,28 @@ runs:
         # We need to fetch all branches and commits so that Nx affected has a base to compare against.
         fetch-depth: 0
         token: ${{ inputs.storm-bot-github-token }}
+        persist-credentials: false
 
-    - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
-      name: Checkout [Default Branch]
+    - name: Checkout `main` branch
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       if: ${{ github.event_name != 'pull_request' }}
       with:
         # We need to fetch all branches and commits so that Nx affected has a base to compare against.
         fetch-depth: 0
         token: ${{ inputs.storm-bot-github-token }}
+        persist-credentials: false
 
     - name: Install and set up Nix
       uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
+      with:
+        github_access_token: ${{ inputs.storm-bot-github-token }}
 
-    # - name: Configures Nix to use the devenv cache
-    #   uses: cachix/cachix-action@v16
-    #   with:
-    #       name: devenv
+    - name: Configures Nix to use the devenv cache
+      uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17.0.0
+      if: ${{ inputs.cachix-auth-token != '' }}
+      with:
+        name: ${{ inputs.cachix-name }}
+        authToken: ${{ inputs.cachix-auth-token }}
 
     - name: Install devenv
       run: nix profile install nixpkgs#devenv

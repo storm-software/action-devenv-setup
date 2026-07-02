@@ -33,7 +33,7 @@ inputs:
   cachix-name:
     description: The cachix name
     required: true
-    default: github-devenv
+    default: github-storm-software
   cachix-auth-token:
     description: The cachix auth token
     required: false

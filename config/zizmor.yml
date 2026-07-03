@@ -17,3 +17,7 @@ rules:
   archived-uses:
     ignore:
       - release.yml:110:15
+  persist-credentials:
+    ignore:
+      - action.yml:45:45
+      - action.yml:50:50

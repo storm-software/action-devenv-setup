@@ -42,7 +42,7 @@ runs:
   using: composite
   steps:
     - name: Checkout [Pull Request]
-      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       if: ${{ github.event_name == 'pull_request' }}
       with:
         # By default, PRs will be checked-out based on the Merge Commit, but we want the actual branch HEAD.
@@ -52,7 +52,7 @@ runs:
         token: ${{ inputs.storm-bot-github-token }}
 
     - name: Checkout `main` branch
-      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       if: ${{ github.event_name != 'pull_request' }}
       with:
         # We need to fetch all branches and commits so that Nx affected has a base to compare against.
@@ -60,7 +60,7 @@ runs:
         token: ${{ inputs.storm-bot-github-token }}
 
     - name: Install and set up Nix
-      uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
+      uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
       with:
         github_access_token: ${{ inputs.storm-bot-github-token }}
 
